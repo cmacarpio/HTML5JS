@@ -1,0 +1,63 @@
+header {     
+    background-color: blue; 
+    color: white; 
+    padding-left: 20px;     
+    border-radius: 15px; 
+} 
+
+header > h1 {     
+    color: aquamarine;
+} 
+
+section {   
+     background: -webkit-linear-gradient(left, rgba(226,222,218,0.1), rgba(255,100,0,0.5));    
+     background: -moz-linear-gradient(right, rgba(226,222,218,0.1), rgba(255,100,0,0.5));     
+     background: linear-gradient(to right, rgba(226,222,218,0.1), rgba(255,100,0,0.5));  
+} 
+
+@import url(http://fonts.googleapis.com/css?family=Righteous); 
+article {     
+    margin-left: 25px;         
+    font-family: 'Righteous', cursive;     
+    font-weight: 400;    
+}
+
+article > div > h1 {
+    color: red;
+    border: 5px solid transparent;
+    border-image: url(../imagenes/border-big-01.png) 30 30 round;     
+}  
+
+article > div {     
+    margin-left: 30px;     
+    font-family: 'Exo', sans-serif;      
+}
+
+footer {     
+    background-color: #A3B3CC;     
+    color: #31363D;     
+    padding-left: 20px;     
+    font-size: small; 
+}  
+
+.clase1 {		
+	color:dimgray;	
+	display: inline-block;	
+    margin-left: 30px;
+}
+
+.cuadroRotado {
+    -ms-transform: rotate(7deg); /* IE 9 */
+    -webkit-transform: rotate(353deg); /* Safari */
+    transform: rotate(353deg); /* Standard syntax */
+    background-color: #A3B3CC;
+}
+
+/*
+.cuadro {
+    -ms-transform: rotate(0deg); /* IE 9 * /
+    -webkit-transform: rotate(0deg); /* Safari * /
+    transform: rotate(0deg); /* Standard syntax * /
+    
+}
+*/
