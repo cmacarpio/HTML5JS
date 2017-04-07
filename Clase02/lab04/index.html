@@ -9,7 +9,10 @@
             <h1>Laboratorio 04</h1>
             <div ng-controller="sumador">
                 <h2>Suma</h2>
-                <p>1 + 3 = {{result}}</p>                
+                <p>1 + 3 = {{result}}</p>             
+                <button ng-click="randomIncrement()">Refrescar</button>
+                <p>La mitad del valor de test <span ng-bind="mitadValor"></span></p>                
+                <p>La mitad del valor de test INICIAL es <span>{{ ::mitadValor}}</span></p> 
             </div>
             <div ng-controller="restador">
                 <h2>Resta</h2>
