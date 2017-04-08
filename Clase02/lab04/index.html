@@ -16,9 +16,16 @@
                     La mitad del valor de test <span ng-bind="mitadValor"></span>
                 </p>                
                 <p>La mitad del valor de test INICIAL es <span>{{ ::mitadValor}}</span></p> 
+
+                <ul>  
+                    <li ng-repeat="h in historial">
+                        <div>{{h.indice}} : {{h.valor}} </div>
+                    </li>                 
+                </ul>
+
             </div>
             <div ng-controller="restador">
-                <h2>Resta</h2>
+                <h2>Resta - Prueba de Controlador adicional</h2>
                 <p>3 - 1 = {{resta}}</p>
             </div>            
         </div>
