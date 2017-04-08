@@ -9,11 +9,10 @@ h2 {
 }
 
 ul {
- 
   margin: 1.5em;
 }
 
-li {
+.ng-scope {
  border-bottom: 1px solid #ccc;
  padding: .2em 0 .2em .5em;
  font-weight: bold;
