@@ -1,2 +1,28 @@
 .estilo1{  color: red;  background-color: #e1e1e1; } 
 .estilo2{  color: white;  background-color: blue; } 
+
+
+h2 {
+  font: 400 40px/1.5 Helvetica, Verdana, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+ 
+  margin: 1.5em;
+}
+
+li {
+ border-bottom: 1px solid #ccc;
+ padding: .2em 0 .2em .5em;
+ font-weight: bold;
+ color: #444; 
+}
+
+li:hover {
+   cursor: pointer;
+   list-style-image: url(check.gif);
+   background-color: #f2f2f2;
+   color: #000; 
+}
