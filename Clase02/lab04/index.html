@@ -1,6 +1,7 @@
 <html ng-app="lab04">
     <head>
         <meta charset="utf-8"></meta>
+        <link rel="stylesheet" type="text/css" href="style.css">  
         <script type="text/javascript" src="node_modules/angular/angular.min.js"></script>
         <script type="text/javascript" src="app.js"></script>
     </head>
@@ -10,8 +11,10 @@
             <div ng-controller="sumador">
                 <h2>Suma</h2>
                 <p>1 + 3 = {{result}}</p>             
-                <button ng-click="randomIncrement()">Refrescar</button>
-                <p>La mitad del valor de test <span ng-bind="mitadValor"></span></p>                
+                <button ng-click="randomIncrement()">Refrescar</button>                
+                <p ng-class="{true:'estilo1', false:'estilo2'}[par]"> 
+                    La mitad del valor de test <span ng-bind="mitadValor"></span>
+                </p>                
                 <p>La mitad del valor de test INICIAL es <span>{{ ::mitadValor}}</span></p> 
             </div>
             <div ng-controller="restador">
