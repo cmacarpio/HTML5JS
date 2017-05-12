@@ -4,7 +4,7 @@
     <input type="text" ng-model="area.nombre"></label> 
 </div>
 <div>
-    <button ng-click="nueva()">Nueva</button>  
-    <button ng-click="guardar()">Guardar</button>  
-    <button ng-click="cancelar()">Cancelar</button> 
+    <button ng-click="nueva()" ng-disabled="isEditing">Nueva</button>  
+    <button ng-click="guardar()" ng-disabled="!isEditing">Guardar</button>  
+    <button ng-click="cancelar()"ng-disabled="!isEditing">Cancelar</button> 
 </div>
