@@ -1,7 +1,7 @@
 <h2>{{titulo}}</h2>
 <div>
     <label>Nombre del área</label>
-    <input type="text" ng-model="area.nombre"></label> 
+    <input type="text" ng-model="area.nombre" ng-disabled="!isEditing"></label> 
 </div>
 <div>
     <button ng-click="nueva()" ng-disabled="isEditing">Nueva</button>  

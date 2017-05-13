@@ -18,12 +18,14 @@ angular.module("appExpedientes",[])
             console.log("Editar "+$scope.isEditing);
         } 
         $scope.guardar = function(){
-            console.log('Guardar click!');
-            if($scope.area && $scope.area.nombre && !$scope.isEditing){       
-                $scope.listaAreas.push($scope.area);  
-            }else if($scope.area && $scope.area.nombre && $scope.isEditing){
+            console.log('Guardar click!'); //&& !$scope.isEditing
+            console.log($scope.area);
+            //if($scope.area === {} && $scope.area.nombre && $scope.isEditing){   
+            if( $scope.listaAreas.indexOf($scope.area) < 0){    
+                $scope.listaAreas.push($scope.area);   
+            }else if($scope.area!=={} && $scope.area.nombre && $scope.isEditing){
                 //Edition
-                alert('Hay que guardar los cambios');
+                //alert('Hay que guardar los cambios');
             }else{        
                 $scope.mensaje = "Hubo un problema, el área no puede tener nombre nulo";  
             }
@@ -37,6 +39,7 @@ angular.module("appExpedientes",[])
             $scope.area={};
             $scope.isEditing=!$scope.isEditing;
             console.log("Nueva "+$scope.isEditing);
+            console.log($scope.area);
         }
         $scope.borrar = function(unArea){
             console.log('Borrar click!');
