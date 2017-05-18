@@ -4,14 +4,26 @@
         <meta charset="utf-8">        
         <link rel="shortcut icon" href="./images/helmet.png" type="image/png" />
         <title>Sistema de gestion de expedientes</title>     
-        <link rel="stylesheet" type="text/css" href="style.css">
+        <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+        <!-- Bootstrap -->
+        <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
     </head>   
+    
     <body ng-controller="areaController">     
-        
-        <div ng-include="'views/datosArea.html'"></div>     
-        <div ng-include="'views/listaAreas.html'"></div> 
-
+        <div class="container">   
+            <div ng-include="'views/datosArea.html'"></div>  
+            <div class="form-group"></div>
+            <div ng-show="cxtInfo != 0">   
+                <p ng-class="{1:'bg-success', 2:'bg-danger'}[cxtInfo]"> 
+                    <span ng-bind="msg"></span>
+                </p> 
+            </div>
+            <div ng-include="'views/listaAreas.html'"></div> 
+        </div>
         <script src="../node_modules/angular/angular.js"></script>
-        <script src="app.js"></script>    
+        <script src="app.js"></script>  
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>  
     </body> 
 </html>
