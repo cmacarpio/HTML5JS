@@ -7,26 +7,28 @@
         <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
         <!-- Bootstrap -->
         <link href="../node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+         <script src="../node_modules/angular/angular.js"></script>
+        <script src="../node_modules/angular-route/angular-route.js"></script> 
+        <script src="app.js"></script>        
+        
+        <!-- Include all compiled plugins (below), or include individual files as needed
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>  -->
     </head>   
     
     <body ng-controller="areaController">     
+        <!--
         <div class="container">   
-            <!-- <div ng-include="'views/datosArea.html'"></div>  -->
+             <div ng-include="'views/datosArea.html'"></div> 
             <div class="form-group"></div>
             <div ng-show="cxtInfo != 0">
                 <p ng-class="{1:'bg-success', 2:'bg-danger'}[cxtInfo]"> 
                     <span ng-bind="msg"></span>
                 </p> 
             </div>
-            <!-- <div ng-include="'views/listaAreas.html'"></div>  -->           
-        </div>
+            <!-- <div ng-include="'views/listaAreas.html'"></div>
+        </div>   -->           
          <ng-view> </ng-view>
-        <script src="../node_modules/angular/angular.js"></script>
-        <script src="../node_modules/angular-route/angular-route.js"></script> 
-        <script src="app.js"></script>  
         
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-        <!-- Include all compiled plugins (below), or include individual files as needed -->
-        <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>  
     </body> 
 </html>
