@@ -21,9 +21,22 @@ angular.module("appExpedientes")
                     deferred.resolve(result);    
                 },    function(e){     
                     deferred.reject("ERROR");         
-                    console.error("ERROR ")    
+                    console.error("ERROR ");    
                 });   
             return deferred.promise;  
-        }  // retornar el objeto servicio construido  
+        };  // retornar el objeto servicio construido  
+        servicioRest.listarAreas = function(){
+            $http.get("http://localhost:3000/areas").then(
+                function(result){                    
+                    deferred.resolve(result.data);
+                },
+                function(error){
+                    deferred.reject("ERROR");         
+                    console.error("ERROR ");
+                }
+            );
+            return deferred.promise;
+        };
+
         return servicioRest; 
     });

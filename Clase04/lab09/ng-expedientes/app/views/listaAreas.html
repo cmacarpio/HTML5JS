@@ -11,6 +11,7 @@
         <table class="table table-hover">
             <thead>
                 <tr>
+                    <th>id</th>
                     <th>Área de la empresa</th>
                     <th>Edición</th>
                     <th>Eliminación</th>                    
@@ -18,6 +19,7 @@
             </thead>
             <tbody>
                 <tr ng-repeat="unArea in listaAreas">
+                    <td><span>{{unArea.id}}</span></td>
                     <td><span>{{unArea.nombre}}</span></td>
                     <td ><button ng-click="editar(unArea)" class="btn btn-default">Editar</button></td>
                     <td ><button ng-click="borrar(unArea)" class="btn btn-danger">Borrar</button></td>

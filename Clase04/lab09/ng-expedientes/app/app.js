@@ -9,6 +9,12 @@ angular.module("appExpedientes",["ngRoute"])
         //$scope.listaAreas = areaService.listarAreas();
         //[{"nombre":"Un Area"},{"nombre":"Salud e higiene"}]; //Aárea de prueva {"nombre":"Un Area"}
         $scope.listaAreas = [];
+        areaServiceREST.listarAreas().then(
+            function(lista){
+                $scope.listaAreas = lista;
+            }
+        );
+        console.log($scope.listaAreas);
         $scope.area = undefined; 
         $scope.isEditing=false;   
         $scope.cxtInfo=0;
