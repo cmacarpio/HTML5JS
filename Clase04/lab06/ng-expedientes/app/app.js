@@ -1,7 +1,7 @@
 angular.module("appExpedientes",["ngRoute"])
     .config(function($routeProvider){
-        $routeProvider.when("/area",{templateUrl:"views/datosArea.html"})
-                    .when("/area/lista",{templateUrl:"views/listaAreas.html"});
+        $routeProvider.when("/area",{templateUrl:"views/datosArea.html",controller:"areaController"})
+                    .when("/area/lista",{templateUrl:"views/listaAreas.html",controller:"areaController"});
     })
     .controller("areaController",function($scope){
         $scope.titulo = "Gestión de Areas";
@@ -9,7 +9,8 @@ angular.module("appExpedientes",["ngRoute"])
         $scope.area = undefined; 
         $scope.isEditing=false;   
         $scope.cxtInfo=0;
-        $scope.msg="";     
+        $scope.msg="";
+        console.log($scope.listaAreas);     
         
         $scope.cancelar = function(){     
             $scope.area=undefined;
@@ -50,7 +51,7 @@ angular.module("appExpedientes",["ngRoute"])
                 $scope.area=undefined;
                 $scope.isEditing=!$scope.isEditing;
             }
-            
+            console.log($scope.listaAreas);
         } 
 
         $scope.nueva = function(){
