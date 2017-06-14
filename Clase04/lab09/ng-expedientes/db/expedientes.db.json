@@ -7,6 +7,14 @@
     {
       "nombre": "SITE GIS",
       "id": 2
+    },
+    {
+      "nombre": "Algo",
+      "id": 3
+    },
+    {
+      "nombre": "Mas",
+      "id": 4
     }
   ]
 }

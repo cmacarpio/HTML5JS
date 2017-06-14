@@ -1,19 +1,22 @@
 angular.module("appExpedientes",["ngRoute"])
     .config(function($routeProvider){
-        $routeProvider.when("/area",{templateUrl:"views/datosArea.html"})
-                    .when("/area/lista",{templateUrl:"views/listaAreas.html"})
+        $routeProvider.when("/area",{templateUrl:"views/datosArea.html",controller:"areaController"})
+                    .when("/area/lista",{templateUrl:"views/listaAreas.html",controller:"listaAreaController"})
                     .otherwise({redirectTo:"/area"});
     })
-    .controller("areaController",function($scope,areaServiceREST){
-        $scope.titulo = "Gestión de Areas";
-        //$scope.listaAreas = areaService.listarAreas();
-        //[{"nombre":"Un Area"},{"nombre":"Salud e higiene"}]; //Aárea de prueva {"nombre":"Un Area"}
-        $scope.listaAreas = [];
+    .controller("listaAreaController",function($scope,areaServiceREST){
+        //$scope.listaAreas = [];
         areaServiceREST.listarAreas().then(
             function(lista){
                 $scope.listaAreas = lista;
             }
         );
+    })
+    .controller("areaController",function($scope,areaServiceREST){
+        $scope.titulo = "Gestión de Areas";
+        //$scope.listaAreas = areaService.listarAreas();
+        //[{"nombre":"Un Area"},{"nombre":"Salud e higiene"}]; //Aárea de prueva {"nombre":"Un Area"}
+        
         console.log($scope.listaAreas);
         $scope.area = undefined; 
         $scope.isEditing=false;   
@@ -33,7 +36,8 @@ angular.module("appExpedientes",["ngRoute"])
             $scope.msg="";
         } 
         $scope.guardar = function(){           
-            if( $scope.listaAreas.indexOf($scope.area) < 0){
+            //if( $scope.listaAreas.indexOf($scope.area) < 0){            
+            if(!$scope.area.id){
                 if($scope.area.nombre){
                     //$scope.listaAreas.push($scope.area); 
                     //areaService.addArea($scope.area);
@@ -76,10 +80,22 @@ angular.module("appExpedientes",["ngRoute"])
             console.log($scope.area);
         }
         $scope.borrar = function(unArea){
-            var idx = $scope.listaAreas.indexOf(unArea);
+            //var idx = $scope.listaAreas.indexOf(unArea);
+            var idx = unArea.id;            
             if( idx >= 0 && confirm("¿Desea borrar el área: "+unArea.nombre+"?")){
                 //$scope.listaAreas.splice(idx,1);
-                areaService.borrarArea(idx);                
+                //areaService.borrarArea(idx);                
+                areaServiceREST.buscarPorID(idx).then(
+                    function(res){
+                        console.log("Lo que viene del servido REST");
+                        console.log(res);                                                
+                        //$scope.area = res;                    
+                        $scope.msg="Operación de eliminación exitosa.";
+                    },
+                    function(err){
+                        $scope.msg="Operación de eliminación fallida.";
+                    }
+                );                
             }
             $scope.isEditing=false;
             $scope.cxtInfo=0;
