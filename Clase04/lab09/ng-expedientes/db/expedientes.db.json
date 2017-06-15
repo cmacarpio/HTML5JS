@@ -15,6 +15,22 @@
     {
       "nombre": "Mas",
       "id": 4
+    },
+    {
+      "nombre": "Java Lab",
+      "id": 5
+    },
+    {
+      "nombre": "Mail",
+      "id": 6
+    },
+    {
+      "nombre": "Magic",
+      "id": 7
+    },
+    {
+      "nombre": "Max",
+      "id": 8
     }
   ]
 }

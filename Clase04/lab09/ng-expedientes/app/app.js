@@ -1,18 +1,22 @@
 angular.module("appExpedientes",["ngRoute"])
     .config(function($routeProvider){
-        $routeProvider.when("/area",{templateUrl:"views/datosArea.html",controller:"areaController"})
+        $routeProvider.when("/area",{templateUrl:"views/datosArea.html",controller:"areaController"})                    
                     .when("/area/lista",{templateUrl:"views/listaAreas.html",controller:"listaAreaController"})
+                    .when("/area/:idArea",{templateUrl:"views/datosArea.html",controller:"areaController"})
                     .otherwise({redirectTo:"/area"});
     })
-    .controller("listaAreaController",function($scope,areaServiceREST){
-        //$scope.listaAreas = [];
+    .controller("listaAreaController",function($scope,$location,areaServiceREST){
+        $scope.listaAreas = [];
+        $scope.goNext = function (hash) { 
+            $location.path(hash);
+        }
         areaServiceREST.listarAreas().then(
             function(lista){
                 $scope.listaAreas = lista;
             }
         );
     })
-    .controller("areaController",function($scope,areaServiceREST){
+    .controller("areaController",function($scope,$routeParams,areaServiceREST){
         $scope.titulo = "Gestión de Areas";
         //$scope.listaAreas = areaService.listarAreas();
         //[{"nombre":"Un Area"},{"nombre":"Salud e higiene"}]; //Aárea de prueva {"nombre":"Un Area"}
@@ -21,7 +25,14 @@ angular.module("appExpedientes",["ngRoute"])
         $scope.area = undefined; 
         $scope.isEditing=false;   
         $scope.cxtInfo=0;
-        $scope.msg="";     
+        $scope.msg="";    
+        if($routeParams){
+            areaServiceREST.buscarPorID($routeParams.idArea).then(
+                function(area){
+                    $scope.area=area;
+                }
+            )
+        } 
         
         $scope.cancelar = function(){     
             $scope.area=undefined;
@@ -29,12 +40,13 @@ angular.module("appExpedientes",["ngRoute"])
             $scope.cxtInfo=0;
             $scope.msg="";
         }
+        /*
         $scope.editar = function(unArea){
             $scope.isEditing=true;   
             $scope.area=unArea;
             $scope.cxtInfo=0;
             $scope.msg="";
-        } 
+        } */
         $scope.guardar = function(){           
             //if( $scope.listaAreas.indexOf($scope.area) < 0){            
             if(!$scope.area.id){
