@@ -41,7 +41,7 @@ angular.module("appExpedientes")
         servicioRest.buscarPorID = function(id){
             $http.get("http://localhost:3000/areas/"+id).then(
                 function(result){
-                    console.log(result.data);
+                    //console.log(result);
                     deferred.resolve(result.data);
                 },
                 function(error){

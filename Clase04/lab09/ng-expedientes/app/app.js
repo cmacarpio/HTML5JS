@@ -1,4 +1,4 @@
-angular.module("appExpedientes",["ngRoute"])
+angular.module("appExpedientes",['ngResource','ngRoute'])
     .config(function($routeProvider){
         $routeProvider.when("/area",{templateUrl:"views/datosArea.html",controller:"areaController"})                    
                     .when("/area/lista",{templateUrl:"views/listaAreas.html",controller:"listaAreaController"})
@@ -16,23 +16,32 @@ angular.module("appExpedientes",["ngRoute"])
             }
         );
     })
-    .controller("areaController",function($scope,$routeParams,areaServiceREST){
+    .controller("areaController",function($scope,$routeParams,$resource,areaServiceREST){
         $scope.titulo = "Gestión de Areas";
+        var area2edit = $resource('http://localhost:3000/areas/:idArea',{idArea:'@id'});
         //$scope.listaAreas = areaService.listarAreas();
         //[{"nombre":"Un Area"},{"nombre":"Salud e higiene"}]; //Aárea de prueva {"nombre":"Un Area"}
         
-        console.log($scope.listaAreas);
-        $scope.area = undefined; 
-        $scope.isEditing=false;   
-        $scope.cxtInfo=0;
-        $scope.msg="";    
-        if($routeParams){
-            areaServiceREST.buscarPorID($routeParams.idArea).then(
-                function(area){
-                    $scope.area=area;
+        //console.log($scope.listaAreas);
+            
+        if($routeParams.idArea){
+            /*areaServiceREST.buscarPorID($routeParams.idArea).then(
+                function(result){
+                    console.log(result);
+                    $scope.area=result;
+                    $scope.isEditing=true;
                 }
-            )
-        } 
+            )*/
+            area2edit.get({idArea:$routeParams.idArea},function(area){
+                $scope.area = area;
+                $scope.isEditing=true;
+            });
+        }else{
+            $scope.area = undefined; 
+            $scope.isEditing=false;   
+            $scope.cxtInfo=0;
+            $scope.msg="";
+        }
         
         $scope.cancelar = function(){     
             $scope.area=undefined;

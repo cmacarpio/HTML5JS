@@ -31,6 +31,10 @@
     {
       "nombre": "Max",
       "id": 8
+    },
+    {
+      "nombre": "Diego",
+      "id": 9
     }
   ]
 }
