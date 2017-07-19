@@ -6,8 +6,11 @@
                 <button ng-click="editar(unArea)" class="btn btn-default">Editar</button>   
                 <button ng-click="borrar(unArea)" class="btn btn-danger">Borrar</button>                          
         </li> 
-    </ul> -->
-    <div class="table-responsive" ng-init="listaAreas= areaServiceREST.listarAreas()"> 
+    </ul>
+    ng-init="listaAreas= areaServiceREST.listarAreas()"
+    ng-controller="listaAreaController as view" ng-init="getLista"
+     -->
+    <div class="table-responsive"> 
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -26,7 +29,8 @@
                 </tr>
             </tbody>
         </table>
-    </div>      
-    <p>Elemento para borrar: <span>{{area.nombre}}</span></p>
-    
+        <p>Elemento para borrar: <span>{{area.nombre}}</span></p>
+        <p>{{i}}</p>
+        <p>{{f}}</p>
+    </div>         
 </div>

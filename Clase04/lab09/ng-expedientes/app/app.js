@@ -5,16 +5,77 @@ angular.module("appExpedientes",['ngResource','ngRoute'])
                     .when("/area/:idArea",{templateUrl:"views/datosArea.html",controller:"areaController"})
                     .otherwise({redirectTo:"/area"});
     })
-    .controller("listaAreaController",function($scope,$location,areaServiceREST){
-        $scope.listaAreas = [];
+    .controller("listaAreaController",function($scope,$location,areaServiceREST){       
+        $scope.listaAreas = [];//areaServiceREST.lista; //areaService.listarAreas();
+        
         $scope.goNext = function (hash) { 
             $location.path(hash);
         }
+
+        $scope.i=0;
+
+        
         areaServiceREST.listarAreas().then(
             function(lista){
-                $scope.listaAreas = lista;
+                console.log("app.js - Exito de la promesa:");
+                console.log(lista);
+                /*
+                $scope.$watchCollection('listaAreas', function(newNames, oldNames) {
+                    $scope.listaAreas = lista;
+                });
+                */
+                //$scope.listaAreas.length = $scope.listaAreas.length + 1;
+                //$scope.listaAreas = lista;
+                angular.extend($scope.listaAreas,lista);
+                //$scope.$watch;
+                //$scope.$apply();
+                //vm.lista = lista;
+                //angular.copy(lista,vm.lista);
+                //console.log(vm.lista);    
+                $scope.i=$scope.i+1;    
+                $scope.f=new Date().getTime();
+                //$scope.$digest();
+                lista=undefined;
+            },
+            function(error){
+                console.error(error);
             }
         );
+            
+        
+        //var vm = this;
+        //vm.lista = [];//areaServiceREST.areas;
+        /*
+        areaServiceREST.listarAreas(function(lista){
+            $scope.listaAreas = lista;
+        });*/
+        /*areaServiceREST.listarAreas(function(lista){
+            $scope.listaAreas=lista;
+        });*/
+        /*
+        vm.getLista = function(){
+            areaServiceREST.listarAreas().then(
+                function(lista){
+                    //console.log(lista);
+                    //$scope.listaAreas = lista;
+                    //$scope.$apply();
+                    //vm.lista = lista;
+                    //angular.copy(lista,vm.lista);
+                    console.log("app.js - Exito de la promesa:");
+                    //console.log(vm.lista);    
+                    $scope.i=$scope.i+1;    
+                    $scope.f=new Date().getTime();
+                },
+                function(error){
+                    console.log(error);
+                }
+            );
+        }*/
+        
+        
+        //vm.getLista();
+       
+        //console.log($scope.listaAreas);
     })
     .controller("areaController",function($scope,$routeParams,$resource,areaServiceREST){
         $scope.titulo = "Gestión de Areas";
@@ -62,10 +123,13 @@ angular.module("appExpedientes",['ngResource','ngRoute'])
                 if($scope.area.nombre){
                     //$scope.listaAreas.push($scope.area); 
                     //areaService.addArea($scope.area);
+                    //$scope.area.id=undefined;
+                    console.log($scope.area.id);
                     areaServiceREST.agregarArea($scope.area)
                         .then(
                             function(resultado){
-                                $scope.msg="Operación de inserción exitosa.";            
+                                $scope.msg="Operación de inserción exitosa.";     
+                                     
                             },
                             function(error){
                                 $scope.msg="Operación de inserción fallida, debe especificar un nombre.";

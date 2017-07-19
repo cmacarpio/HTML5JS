@@ -1,34 +1,63 @@
 angular.module("appExpedientes")
-    .service("areaService",function(){
-        this.areas=[{"nombre":"Un Area"},{"nombre":"Salud e higiene"}];//[];
+    /*.service("areaService",function(areaServiceREST){
+        //this.areas=[{"nombre":"Un Area"},{"nombre":"Salud e higiene"}];//[];
+        this.areas = [];
+
         this.addArea = function(unArea){
             this.areas.push(unArea);
         }
+
         this.listarAreas = function(){
+            areaServiceREST.listarAreas().then(
+                function(lista){
+                    this.areas = lista;
+                },
+                function(error){
+                    console.log(error);
+                }
+            );
             return this.areas;
         }
+        
         this.borrarArea = function(idx){
             this.areas.splice(idx,1);
         }
-    })
-    .factory("areaServiceREST",function($http,$q) {  
-        var servicioRest = {};    
-        var deferred = $q.defer();    // agregar al objeto metodos de negocio  
-        // agregar método para hacer un POST rest  
-        servicioRest.agregarArea = function(unArea){   
+    })*/
+    .factory("areaServiceREST",function($http,$q) {
+        var deferred = $q.defer();
+
+        //interface  
+        var servicioRest = {
+            areas:[],
+            agregarArea:agregarArea,
+            listarAreas:listarAreas
+        };    
+        return servicioRest;
+
+
+        //implementation        
+        function agregarArea(unArea){   
             $http.post("http://localhost:3000/areas/",unArea).then(    
                 function(result){ 
-                    //console.error("Post success");    
+                    console.log("Post success - Agregar Area");    
                     deferred.resolve(result);    
+                    //console.log("código después de insertar:...");                    
                 },    function(e){     
                     deferred.reject("ERROR Post");         
                     console.error("ERROR ");    
-                });   
+                });
             return deferred.promise;  
         };  // retornar el objeto servicio construido  
-        servicioRest.listarAreas = function(){
+
+
+
+        function listarAreas(){
+            console.log("REST - listar Areas...");            
             $http.get("http://localhost:3000/areas").then(
-                function(result){                                       
+                function(result){    
+                    console.log("Post success - Listar Areas");
+                    servicioRest.areas = result.data;  
+                    console.log(result.data);              
                     deferred.resolve(result.data);
                 },
                 function(error){
@@ -38,7 +67,8 @@ angular.module("appExpedientes")
             );
             return deferred.promise;
         };
-        servicioRest.buscarPorID = function(id){
+
+        function buscarPorID(id){
             $http.get("http://localhost:3000/areas/"+id).then(
                 function(result){
                     //console.log(result);
@@ -50,6 +80,4 @@ angular.module("appExpedientes")
                 });
             return deferred.promise;
         }
-
-        return servicioRest; 
     });
