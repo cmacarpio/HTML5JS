@@ -7,13 +7,19 @@ angular.module("appExpedientes",['ngResource','ngRoute'])
     })
     .controller("listaAreaController",function($scope,$location,areaServiceREST){       
         $scope.listaAreas = [];//areaServiceREST.lista; //areaService.listarAreas();
-        
+        $scope.areas_db=[];
         $scope.goNext = function (hash) { 
             $location.path(hash);
         }
 
         $scope.i=0;
-
+        $scope.$watchCollection(
+            "areas_db",
+            function(newV,oldV){
+                //console.log(newV);
+                angular.copy(newV,$scope.listaAreas);
+            }
+        );
         
         areaServiceREST.listarAreas().then(
             function(lista){
@@ -26,16 +32,18 @@ angular.module("appExpedientes",['ngResource','ngRoute'])
                 */
                 //$scope.listaAreas.length = $scope.listaAreas.length + 1;
                 //$scope.listaAreas = lista;
-                angular.extend($scope.listaAreas,lista);
+                //angular.extend($scope.listaAreas,lista);
+                //angular.copy(lista,$scope.areas_db);
+                angular.copy(lista,$scope.listaAreas);
                 //$scope.$watch;
                 //$scope.$apply();
                 //vm.lista = lista;
                 //angular.copy(lista,vm.lista);
                 //console.log(vm.lista);    
-                $scope.i=$scope.i+1;    
-                $scope.f=new Date().getTime();
+                //$scope.i=$scope.i+1;    
+                //$scope.f=new Date().getTime();
                 //$scope.$digest();
-                lista=undefined;
+                //lista=undefined;
             },
             function(error){
                 console.error(error);

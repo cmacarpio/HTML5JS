@@ -24,7 +24,7 @@ angular.module("appExpedientes")
         }
     })*/
     .factory("areaServiceREST",function($http,$q) {
-        var deferred = $q.defer();
+        //var deferred = $q.defer();
 
         //interface  
         var servicioRest = {
@@ -36,7 +36,8 @@ angular.module("appExpedientes")
 
 
         //implementation        
-        function agregarArea(unArea){   
+        function agregarArea(unArea){  
+            deferred = $q.defer(); 
             $http.post("http://localhost:3000/areas/",unArea).then(    
                 function(result){ 
                     console.log("Post success - Agregar Area");    
@@ -52,6 +53,7 @@ angular.module("appExpedientes")
 
 
         function listarAreas(){
+            deferred = $q.defer();
             console.log("REST - listar Areas...");            
             $http.get("http://localhost:3000/areas").then(
                 function(result){    
