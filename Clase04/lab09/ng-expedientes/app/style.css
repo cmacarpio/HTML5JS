@@ -1,6 +1,12 @@
 .estilo1{  color: red;  background-color: #e1e1e1; } 
 .estilo2{  color: white;  background-color: blue; } 
 
+table.center {
+    width:70%; 
+    margin-left:15%; 
+    margin-right:15%;
+}
+
 
 h2 {
   font: 400 40px/1.5 Helvetica, Verdana, sans-serif;

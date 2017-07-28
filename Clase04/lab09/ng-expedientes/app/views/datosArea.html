@@ -1,5 +1,10 @@
 <h2>{{titulo}}</h2>
 <div>
+    <div ng-show="cxtInfo != 0">
+        <p ng-class="{1:'bg-success', 2:'bg-danger'}[cxtInfo]"> 
+            <span ng-bind="msg"></span>
+        </p> 
+    </div>
     <label>Nombre del área</label>
     <input type="text" ng-model="area.nombre" ng-disabled="!isEditing"></label> 
 </div>
