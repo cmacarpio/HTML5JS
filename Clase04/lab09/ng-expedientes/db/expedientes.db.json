@@ -5,8 +5,16 @@
       "id": 1
     },
     {
-      "nombre": "A2.1",
-      "id": 2
+      "nombre": "Area 57",
+      "id": 3
+    },
+    {
+      "nombre": "Personal EPE",
+      "id": 6
+    },
+    {
+      "nombre": "Emirates Arabes Office",
+      "id": 7
     }
   ]
 }

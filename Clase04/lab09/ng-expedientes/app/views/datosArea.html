@@ -1,15 +1,35 @@
-<h2>{{titulo}}</h2>
+
 <div>
+    <!--
     <div ng-show="cxtInfo != 0">
         <p ng-class="{1:'bg-success', 2:'bg-danger'}[cxtInfo]"> 
             <span ng-bind="msg"></span>
         </p> 
+    </div>  -->  
+    <div ng-show="cxtInfo != 0" ng-class="{1:'alert alert-success', 2:'alert alert-danger'}[cxtInfo]">
+        <p> 
+            <span ng-bind="msg"></span>
+        </p> 
     </div>
-    <label>Nombre del área</label>
-    <input type="text" ng-model="area.nombre" ng-disabled="!isEditing"></label> 
-</div>
-<div>
-    <button ng-click="nueva()" ng-disabled="area !== undefined" class="btn btn-default">Nueva</button>  
-    <button ng-click="guardar()" ng-disabled="area === undefined" class="btn btn-default">Guardar</button>  
-    <button ng-click="cancelar()"ng-disabled="area === undefined" class="btn btn-default">Cancelar</button> 
+    <div class="panel panel-primary">
+        <div class="panel-heading">
+            <h3>{{titulo}}</h3>
+        </div>
+        <div class="panel-body">
+            <label>Nombre del área</label>
+            <input type="text" ng-model="area.nombre" ng-disabled="!isEditing"></label>
+            <p></p>
+            <p>
+                <button ng-click="nueva()" ng-disabled="area !== undefined" class="btn btn-sm btn-default">Nueva</button>  
+                <button ng-click="guardar()" ng-disabled="area === undefined" class="btn btn-sm btn-success">Guardar</button>  
+                <button ng-click="cancelar()"ng-disabled="area === undefined" class="btn btn-sm btn-danger">Cancelar</button> 
+            </p>
+        </div>
+    </div>
+
+    
+
+
+    
+     
 </div>

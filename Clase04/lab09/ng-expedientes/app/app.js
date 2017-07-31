@@ -6,30 +6,24 @@ angular.module("appExpedientes",['ngResource','ngRoute'])
                     .otherwise({redirectTo:"/area"});
     })
     .controller("listaAreaController",function($scope,$location,areaServiceREST){       
-        //$scope.listaAreas = [];
+        $scope.listaAreas = [];
         
         $scope.goNext = function (hash) { 
             $location.path(hash);
         }
         $scope.i=0;
 
-        function listarAreas(){
-            var lstAreas=[];
-            areaServiceREST.listarAreas().then(
+        areaServiceREST.listarAreas().then(
                 function(lista){
-                    //console.log("app.js - Exito de la promesa:");
-                    //console.log(lista);                
-                    //$scope.listaAreas = lista;
-                    lstAreas = lista;
-                },
-                function(error){
+                    $scope.listaAreas = lista;
+                },function(error){
                     console.error(error);
-                }
-            );
-            return lstAreas;
-        }
+        });
         
-        $scope.listaAreas = listarAreas();
+        
+        //angular.copy(listarAreas(),$scope.listaAreas);
+        //$scope.listaAreas = listarAreas();
+        //sconsole.log($scope.listaAreas);
           
         
         $scope.borrar = function(unArea){
@@ -37,9 +31,7 @@ angular.module("appExpedientes",['ngResource','ngRoute'])
                 areaServiceREST.borrarArea(unArea.id).then(
                     function(res){                        
                         areaServiceREST.listarAreas().then(
-                            function(lista){
-                                console.log("app.js - Exito de la promesa:");
-                                console.log(lista);                
+                            function(lista){                                            
                                 $scope.listaAreas = lista;                
                             },
                             function(error){
@@ -55,7 +47,7 @@ angular.module("appExpedientes",['ngResource','ngRoute'])
         }
     })
     .controller("areaController",function($scope,$routeParams,$resource,areaServiceREST){
-        $scope.titulo = "Gestión de Areas";
+        $scope.titulo = "Carga de áreas";
         var area2edit = $resource('http://localhost:3000/areas/:idArea',{idArea:'@id'});
         //$scope.listaAreas = areaService.listarAreas();
         //[{"nombre":"Un Area"},{"nombre":"Salud e higiene"}]; //Aárea de prueva {"nombre":"Un Area"}
