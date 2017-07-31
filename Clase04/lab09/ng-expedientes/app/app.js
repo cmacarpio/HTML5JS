@@ -6,24 +6,53 @@ angular.module("appExpedientes",['ngResource','ngRoute'])
                     .otherwise({redirectTo:"/area"});
     })
     .controller("listaAreaController",function($scope,$location,areaServiceREST){       
-        $scope.listaAreas = [];
+        //$scope.listaAreas = [];
         
         $scope.goNext = function (hash) { 
             $location.path(hash);
         }
-
         $scope.i=0;
+
+        function listarAreas(){
+            var lstAreas=[];
+            areaServiceREST.listarAreas().then(
+                function(lista){
+                    //console.log("app.js - Exito de la promesa:");
+                    //console.log(lista);                
+                    //$scope.listaAreas = lista;
+                    lstAreas = lista;
+                },
+                function(error){
+                    console.error(error);
+                }
+            );
+            return lstAreas;
+        }
         
-        areaServiceREST.listarAreas().then(
-            function(lista){
-                console.log("app.js - Exito de la promesa:");
-                console.log(lista);                
-                $scope.listaAreas = lista;                
-            },
-            function(error){
-                console.error(error);
+        $scope.listaAreas = listarAreas();
+          
+        
+        $scope.borrar = function(unArea){
+            if( unArea.id >= 0 && confirm("¿Desea borrar el área: "+unArea.nombre+"?")){
+                areaServiceREST.borrarArea(unArea.id).then(
+                    function(res){                        
+                        areaServiceREST.listarAreas().then(
+                            function(lista){
+                                console.log("app.js - Exito de la promesa:");
+                                console.log(lista);                
+                                $scope.listaAreas = lista;                
+                            },
+                            function(error){
+                                console.error(error);
+                            }
+                        );
+                    },
+                    function(err){
+                        $scope.msg="Operación de eliminación fallida.";
+                    }
+                );                
             }
-        );           
+        }
     })
     .controller("areaController",function($scope,$routeParams,$resource,areaServiceREST){
         $scope.titulo = "Gestión de Areas";
@@ -93,6 +122,7 @@ angular.module("appExpedientes",['ngResource','ngRoute'])
                 } 
             }else if($scope.area.nombre && $scope.isEditing){
                 //Edition
+                areaServiceREST.modificarArea($scope.area);
                 $scope.cxtInfo=1;
                 $scope.msg="La operación de edición fue exitosa.";
                 $scope.area=undefined;
@@ -112,27 +142,5 @@ angular.module("appExpedientes",['ngResource','ngRoute'])
             $scope.msg="";
             console.log($scope.area);
         }
-        $scope.borrar = function(unArea){
-            //var idx = $scope.listaAreas.indexOf(unArea);
-            var idx = unArea.id;            
-            if( idx >= 0 && confirm("¿Desea borrar el área: "+unArea.nombre+"?")){
-                //$scope.listaAreas.splice(idx,1);
-                //areaService.borrarArea(idx);                
-                areaServiceREST.buscarPorID(idx).then(
-                    function(res){
-                        console.log("Lo que viene del servido REST");
-                        console.log(res);                                                
-                        //$scope.area = res;                    
-                        $scope.msg="Operación de eliminación exitosa.";
-                    },
-                    function(err){
-                        $scope.msg="Operación de eliminación fallida.";
-                    }
-                );                
-            }
-            $scope.isEditing=false;
-            $scope.cxtInfo=0;
-            $scope.msg="";
-        }
-    
+            
 });

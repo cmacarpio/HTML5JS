@@ -1,28 +1,4 @@
 angular.module("appExpedientes")
-    /*.service("areaService",function(areaServiceREST){
-        //this.areas=[{"nombre":"Un Area"},{"nombre":"Salud e higiene"}];//[];
-        this.areas = [];
-
-        this.addArea = function(unArea){
-            this.areas.push(unArea);
-        }
-
-        this.listarAreas = function(){
-            areaServiceREST.listarAreas().then(
-                function(lista){
-                    this.areas = lista;
-                },
-                function(error){
-                    console.log(error);
-                }
-            );
-            return this.areas;
-        }
-        
-        this.borrarArea = function(idx){
-            this.areas.splice(idx,1);
-        }
-    })*/
     .factory("areaServiceREST",function($http,$q) {
         //var deferred = $q.defer();
 
@@ -30,7 +6,9 @@ angular.module("appExpedientes")
         var servicioRest = {
             areas:[],
             agregarArea:agregarArea,
-            listarAreas:listarAreas
+            listarAreas:listarAreas,
+            modificarArea:modificarArea,
+            borrarArea:borrarArea
         };    
         return servicioRest;
 
@@ -50,8 +28,38 @@ angular.module("appExpedientes")
             return deferred.promise;  
         };  // retornar el objeto servicio construido  
 
+        function modificarArea(unArea){
+            deferred = $q.defer();
+            console.log(unArea);
+            var data = $.param({nombre:unArea.nombre});
+            $http.put("http://localhost:3000/areas/"+unArea.id,data, {
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                },}).then(
+                function(result){
+                    console.log("Put success - Modificar Area");
+                    deferred.resolve(result);
+                },
+                function(result){
+                    deferred.reject("ERROR Put");
+                    console.error("ERROR en modificación");
+                })
+            return deferred.promise;
+        };
 
-
+        function borrarArea(id){
+             deferred = $q.defer();
+             $http.delete("http://localhost:3000/areas/"+id).then(
+                    function(result){                        
+                        deferred.resolve(result.data);
+                    },
+                    function(error){
+                        deferred.reject("ERROR");
+                        console.log("ERROR");
+                    });
+                return deferred.promise;
+        };
+        
         function listarAreas(){
             deferred = $q.defer();
             console.log("REST - listar Areas...");            
@@ -71,6 +79,7 @@ angular.module("appExpedientes")
         };
 
         function buscarPorID(id){
+            deferred = $q.defer();
             $http.get("http://localhost:3000/areas/"+id).then(
                 function(result){
                     //console.log(result);
@@ -81,5 +90,5 @@ angular.module("appExpedientes")
                     console.log("ERROR");
                 });
             return deferred.promise;
-        }
+        };
     });
