@@ -12,6 +12,7 @@ angular.module("appExpedientes",['ngResource','ngRoute'])
             $location.path(hash);
         }
         $scope.i=0;
+        // pruba GIT
 
         areaServiceREST.listarAreas().then(
                 function(lista){
